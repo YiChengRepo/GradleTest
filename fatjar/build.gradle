@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'com.yicheng.demo'
+version '2.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+sourceSets {
+    main.java.srcDir "src/main"
+    test.java.srcDir "src/test"
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "TestGradle")
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+}
+
