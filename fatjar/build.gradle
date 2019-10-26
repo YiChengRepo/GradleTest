@@ -31,3 +31,22 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
 }
 
+task runJava(type: Exec, dependsOn: jar) {
+    project.setVersion('1.2.0')
+    ext.jarfile = project.libsDir.path + File.separator + project.name + '-' + project.version + '.jar'
+    println "my jar file is:  $ext.jarfile"
+
+    executable 'java'
+    args  '-jar', jar.archivePath, 'hello'
+}
+
+task runJar(type: JavaExec, dependsOn: jar) {
+    args jar.archivePath, 'hello'
+    main = "-jar";
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    main 'TestGradle'
+    classpath sourceSets.main.runtimeClasspath
+    args 'hello world'
+}

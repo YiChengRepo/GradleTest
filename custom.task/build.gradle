@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'com.yicheng.demo'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+task hello(group: 'greeting', description: 'Greets you') {
+    println "hello from configuration phase"
+    ext.greeting = "Hey how's it going ?"
+    doLast { println "hello friend"}
+    doLast { println "what's going on"}
+    doLast { println "Greeting: $greeting"}
+    doFirst { println "NiHao"}
+}
